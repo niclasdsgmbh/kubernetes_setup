@@ -1,7 +1,8 @@
 # UPDATE & UPGRADE
 export DEBIAN_FRONTEND=noninteractive
 apt update -yq
-apt dist-updgrade -yq
+apt updgrade -yq
+apt dist-upgrade -yq
 
 # HOSTS
 echo "10.0.0.3 manager" >> /etc/hosts
