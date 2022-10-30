@@ -1,7 +1,8 @@
 # UPDATE & UPGRADE
 export DEBIAN_FRONTEND=noninteractive
 apt update -yq
-apt updgrade -yq
+apt upgrade -yq
+apt autoremove -yq
 apt dist-upgrade -yq
 
 # HOSTS
@@ -36,7 +37,7 @@ apt -yq install \
 
 # ADD DOCKER REPO
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
-add-apt-repository -yq "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt update -yq
 apt install -yq containerd.io
 
@@ -48,7 +49,7 @@ systemctl enable containerd
 
 # ADD KUBERNETES REPO
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-apt-add-repository -yq "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+apt-add-repository -y "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 # INSTALL KUBERNETES
 apt update -yq
@@ -62,4 +63,5 @@ apt-mark hold \
   kubectl
   
 # AUTOCLEAN
-apt get autoclean -yq
+apt autoclean -y
+init 6
