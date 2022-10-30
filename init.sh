@@ -1,4 +1,5 @@
 # UPDATE & UPGRADE
+DEBIAN_FRONTEND=noninteractive
 sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
 apt update
 apt dist-upgrade -qq -y
