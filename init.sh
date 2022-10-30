@@ -35,7 +35,7 @@ apt -yq install \
 
 # ADD DOCKER REPO
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+add-apt-repository -yq "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt update -yq
 apt install -yq containerd.io
 
@@ -47,7 +47,7 @@ systemctl enable containerd
 
 # ADD KUBERNETES REPO
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+apt-add-repository -yq "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 # INSTALL KUBERNETES
 apt update -yq
