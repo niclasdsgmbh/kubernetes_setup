@@ -1,7 +1,7 @@
 # UPDATE & UPGRADE
 sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
 apt update
-apt dist-upgrade -qq
+apt dist-upgrade -qq -y
 
 # HOSTS
 echo "10.0.0.3 manager" >> /etc/hosts
