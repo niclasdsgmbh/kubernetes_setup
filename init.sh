@@ -2,11 +2,9 @@
 export DEBIAN_FRONTEND=noninteractive
 apt update -yq
 apt upgrade -yq
-apt autoremove -yq
-apt dist-upgrade -yq
 
 # HOSTS
-echo "10.0.0.3 manager" >> /etc/hosts
+echo "10.0.0.3 manager"  >> /etc/hosts
 echo "10.0.0.4 worker-1" >> /etc/hosts 
 echo "10.0.0.5 worker-2" >> /etc/hosts
 echo "10.0.0.6 worker-3" >> /etc/hosts
