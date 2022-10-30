@@ -1,6 +1,6 @@
 # UPDATE & UPGRADE
 apt update
-apt upgrade -y
+apt dist-upgrade -y -qq
 
 # HOSTS
 echo "10.0.0.3 manager" >> /etc/hosts
@@ -57,3 +57,6 @@ apt-mark hold \
   kubelet \
   kubeadm \
   kubectl
+  
+# AUTOCLEAN
+apt get -y autoclean
