@@ -1,0 +1,3 @@
+git clone https://github.com/niclasdsgmbh/kubernetes_setup.git /git \
+&& cd /git \
+&& chmod +x init.sh manager.sh worker.sh
