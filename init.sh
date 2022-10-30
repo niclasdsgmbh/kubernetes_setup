@@ -1,6 +1,6 @@
 # UPDATE & UPGRADE
 apt update
-apt dist-upgrade -y -qq
+apt dist-upgrade -qq -qq
 
 # HOSTS
 echo "10.0.0.3 manager" >> /etc/hosts
@@ -25,7 +25,7 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/kubernetes.conf
 sysctl --system
 
 # INSTALL CONTAINERD
-apt install -y \
+apt install -qq \
   curl \
   gnupg2 \
   software-properties-common \
@@ -49,7 +49,7 @@ apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 # INSTALL KUBERNETES
 apt update
-apt install -y \
+apt install -qq \
   kubelet \
   kubeadm \
   kubectl
@@ -59,4 +59,4 @@ apt-mark hold \
   kubectl
   
 # AUTOCLEAN
-apt get -y autoclean
+apt get -qq autoclean
