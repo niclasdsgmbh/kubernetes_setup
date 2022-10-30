@@ -1,8 +1,6 @@
 # UPDATE & UPGRADE
-DEBIAN_FRONTEND=noninteractive
-sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
-apt update
-apt dist-upgrade -qq -y
+DEBIAN_FRONTEND=noninteractive apt update
+DEBIAN_FRONTEND=noninteractive apt dist-upgrade
 
 # HOSTS
 echo "10.0.0.3 manager" >> /etc/hosts
@@ -27,7 +25,7 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/kubernetes.conf
 sysctl --system
 
 # INSTALL CONTAINERD
-apt install -qq \
+DEBIAN_FRONTEND=noninteractive apt install \
   curl \
   gnupg2 \
   software-properties-common \
@@ -37,7 +35,8 @@ apt install -qq \
 # ADD DOCKER REPO
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-apt update && apt install -y containerd.io
+DEBIAN_FRONTEND=noninteractive update 
+DEBIAN_FRONTEND=noninteractive apt install containerd.io
 
 # CONFIGURE CONTAINERD
 containerd config default | tee /etc/containerd/config.toml >/dev/null 2>&1
@@ -50,15 +49,15 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 # INSTALL KUBERNETES
-apt update
-apt install -qq \
+DEBIAN_FRONTEND=noninteractive apt update
+DEBIAN_FRONTEND=noninteractive apt install \
   kubelet \
   kubeadm \
   kubectl
-apt-mark hold \
+DEBIAN_FRONTEND=noninteractive apt-mark hold \
   kubelet \
   kubeadm \
   kubectl
   
 # AUTOCLEAN
-apt get -qq autoclean
+DEBIAN_FRONTEND=noninteractive apt get autoclean
