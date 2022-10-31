@@ -10,7 +10,7 @@ apt upgrade -yq
 # HOSTS                      #
 ##############################
 
-echo hosts.list  >> /etc/hosts
+cat hosts.list  >> /etc/hosts
 
 ##############################
 # SWAP                       #
@@ -138,20 +138,25 @@ apt-get install -y \
 # DEPLOY MINIO               #
 ##############################
 
-docker run \
+docker run -d \
    -p 9000:9000 \
    -p 9090:9090 \
    --name minio \
-   -v /mnt/storage/:/data \
+   -v /mnt/storage/minio/:/data/ \
    -e "MINIO_ROOT_USER=dodspot" \
-   -e "MINIO_ROOT_PASSWORD=dodspot" \
+   -e "MINIO_ROOT_PASSWORD=dodspot#" \
    quay.io/minio/minio server /data --console-address ":9090"
 
 ##############################
 # DEPLOY PORTAINER           #
 ##############################
 
-docker run -d -p 9443:9443 --name=portainer --restart=always \
+docker run -d \
+    -p 9443:9443 \
+    --name=portainer \
+    --restart=always \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /portainer_data:/data \
+    -v /mnt/storage/portainer/:/data/ \
     portainer/portainer-ee:latest
+
+kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodeport.yaml

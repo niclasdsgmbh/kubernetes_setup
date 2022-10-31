@@ -10,7 +10,7 @@ apt upgrade -yq
 # HOSTS                      #
 ##############################
 
-echo hosts.list  >> /etc/hosts
+cat hosts.list  >> /etc/hosts
 
 ##############################
 # SWAP                       #
