@@ -1,0 +1,4 @@
+MINIO_ACCESS_KEY="minioaccesskey"
+MINIO_VOLUMES="/mnt/minio"
+MINIO_OPTS="-C /etc/minio --address 0.0.0.0:9000"
+MINIO_SECRET_KEY="miniosecretkey"

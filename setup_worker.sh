@@ -1,31 +1,46 @@
-# UPDATE & UPGRADE
+##############################
+# UPDATE & UPGRADE           #
+##############################
+
 export DEBIAN_FRONTEND=noninteractive
-apt update -yq
+apt update
 apt upgrade -yq
 
-# HOSTS
-echo "10.0.0.3 manager"  >> /etc/hosts
-echo "10.0.0.4 worker-1" >> /etc/hosts 
-echo "10.0.0.5 worker-2" >> /etc/hosts
-echo "10.0.0.6 worker-3" >> /etc/hosts
+##############################
+# HOSTS                      #
+##############################
 
-# SWAP
+echo hosts.list  >> /etc/hosts
+
+##############################
+# SWAP                       #
+##############################
+
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-# KERNEL MODULES
+##############################
+# KERNEL MODULES             #
+##############################
+
 echo "overlay" >> /etc/modules-load.d/containerd.conf
 echo "br_netfilter" >> /etc/modules-load.d/containerd.conf
 modprobe overlay
 modprobe br_netfilter
 
-# KERNEL PARAMETERS
+##############################
+# KERNEL PARAMETERS          #
+##############################
+
 echo "net.bridge.bridge-nf-call-ip6tables = 1" >> /etc/sysctl.d/kubernetes.conf
 echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.d/kubernetes.conf
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/kubernetes.conf
 sysctl --system
 
-# INSTALL CONTAINERD
+##############################
+# INSTALL CONTAINERD         #
+##############################
+
 apt -yq install \
   curl \
   gnupg2 \
@@ -33,23 +48,35 @@ apt -yq install \
   apt-transport-https \
   ca-certificates
 
-# ADD DOCKER REPO
+##############################
+# ADD DOCKER REPO            #
+##############################
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-apt update -yq
-apt install -yq containerd.io
 
-# CONFIGURE CONTAINERD
+##############################
+# CONFIGURE CONTAINERD       #
+##############################
+
+apt update
+apt install -yq containerd.io
 containerd config default | tee /etc/containerd/config.toml >/dev/null 2>&1
 sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 systemctl restart containerd
 systemctl enable containerd
 
-# ADD KUBERNETES REPO
+##############################
+# ADD KUBERNETES REPO        #
+##############################
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 apt-add-repository -y "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
-# INSTALL KUBERNETES
+##############################
+# INSTALL KUBERNETES         #
+##############################
+
 apt update -yq
 apt install -yq \
   kubelet \
@@ -59,7 +86,12 @@ apt-mark hold \
   kubelet \
   kubeadm \
   kubectl
-  
-# AUTOCLEAN
+
+##############################
+# AUTOCLEAN                  #
+##############################
+
 apt autoclean -y
-init 6
+
+
+
