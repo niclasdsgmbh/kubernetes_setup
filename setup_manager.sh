@@ -69,7 +69,7 @@ apt-add-repository -y "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 # INSTALL KUBERNETES         #
 ##############################
 
-apt update -yq
+apt update
 apt install -yq \
   kubelet \
   kubeadm \
@@ -83,7 +83,7 @@ apt-mark hold \
 # CONFIG KUBERNETES          #
 ##############################
 
-kubeadm init --control-plane-endpoint=manager
+kubeadm init --control-plane-endpoint=manager-1
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
