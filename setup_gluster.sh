@@ -20,7 +20,7 @@ mkdir /etc/minio
 chown minio:minio /etc/minio
 
 cp ./minio/minio /etc/default/minio
-cp ./mini/minio.service  /etc/systemd/system/
+cp ./minio/minio.service  /etc/systemd/system/
 
 systemctl start minio
 systemctl enable minio
