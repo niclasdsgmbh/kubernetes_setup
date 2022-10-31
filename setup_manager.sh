@@ -147,9 +147,16 @@ curl https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/m
 kubectl apply -f minio-dev.yaml
 
 ##############################
+# CONFIG CNI                 #
+##############################
+
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+kubectl patch storageclass gluster -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+
+##############################
 # CONFIG STORAGECLASS        #
 ##############################
 
-kubectl patch storageclass gluster -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 
