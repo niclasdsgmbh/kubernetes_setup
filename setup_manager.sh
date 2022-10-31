@@ -89,19 +89,6 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 ##############################
-# CONFIG FLANNEL             #
-##############################
-
-kubectl apply -f /git/cni.yaml
-kubectl apply -f /git/storageclass.yaml
-
-##############################
-# CONFIG STORAGECLASS        #
-##############################
-
-kubectl patch storageclass gluster -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-
-##############################
 # INSTALL DOCKER             #
 ##############################
 
@@ -140,7 +127,7 @@ docker run -d \
    quay.io/minio/minio server /data --console-address ":9090"
 
 ##############################
-# DEPLOY PORTAINER           #
+# DEPLOY PORTAINER DOCKER    #
 ##############################
 
 docker run -d \
@@ -150,5 +137,19 @@ docker run -d \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /mnt/storage/portainer/:/data/ \
     portainer/portainer-ee:latest
+ 
+##############################
+# CONFIG FLANNEL & STORAGE   #
+##############################
 
 kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodeport.yaml
+curl https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml -O
+kubectl apply -f minio-dev.yaml
+
+##############################
+# CONFIG STORAGECLASS        #
+##############################
+
+kubectl patch storageclass gluster -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+
