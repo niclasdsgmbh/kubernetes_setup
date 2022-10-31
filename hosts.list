@@ -1,6 +1,4 @@
 10.0.0.2   loadbalancer
-10.0.0.3   gluster
-10.0.0.10  portainer
 
 10.0.0.101 worker-1
 10.0.0.102 worker-2

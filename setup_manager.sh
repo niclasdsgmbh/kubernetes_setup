@@ -100,7 +100,14 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 # CONFIG FLANNEL             #
 ##############################
 
-kubectl apply -f /git/kube-flannel.yml
+kubectl apply -f /git/cni.yml
+kubectl apply -f /git/storageclass.yml
+
+##############################
+# CONFIG STORAGECLASS        #
+##############################
+
+kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
 ##############################
 # AUTOCLEAN                  #
@@ -108,5 +115,24 @@ kubectl apply -f /git/kube-flannel.yml
 
 apt autoclean -y
 
+##############################
+# DEPLOY MINIO               #
+##############################
 
+docker run \
+   -p 9000:9000 \
+   -p 9090:9090 \
+   --name minio \
+   -v /mnt/storage/:/data \
+   -e "MINIO_ROOT_USER=dodspot" \
+   -e "MINIO_ROOT_PASSWORD=dodspot" \
+   quay.io/minio/minio server /data --console-address ":9090"
 
+##############################
+# DEPLOY PORTAINER           #
+##############################
+
+docker run -d -p 9443:9443 --name=portainer --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /portainer_data:/data \
+    portainer/portainer-ee:latest
