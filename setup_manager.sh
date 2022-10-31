@@ -107,7 +107,7 @@ kubectl apply -f /git/storageclass.yml
 # CONFIG STORAGECLASS        #
 ##############################
 
-kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+kubectl patch storageclass gluster -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
 ##############################
 # AUTOCLEAN                  #
