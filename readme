@@ -12,4 +12,5 @@ export DEBIAN_FRONTEND=noninteractive \
 && init 6
 
 git clone https://github.com/niclasdsgmbh/kubernetes_setup.git /git \
-&& cd /git
+&& cd /git \
+&& chmod +x setup_worker.sh setup_manager.sh
