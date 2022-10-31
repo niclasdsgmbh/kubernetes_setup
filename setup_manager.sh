@@ -100,8 +100,8 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 # CONFIG FLANNEL             #
 ##############################
 
-kubectl apply -f /git/cni.yml
-kubectl apply -f /git/storageclass.yml
+kubectl apply -f /git/cni.yaml
+kubectl apply -f /git/storageclass.yaml
 
 ##############################
 # CONFIG STORAGECLASS        #
