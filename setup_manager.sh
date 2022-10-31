@@ -1,12 +1,4 @@
 ##############################
-# UPDATE & UPGRADE           #
-##############################
-
-export DEBIAN_FRONTEND=noninteractive
-apt update
-apt upgrade -yq
-
-##############################
 # HOSTS                      #
 ##############################
 
