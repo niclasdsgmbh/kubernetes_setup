@@ -1,3 +1,8 @@
+manager-x     10.0.0.201 - 10.0.0.209
+worker-x      10.0.0.101 - 10.0.0.119
+loadbalancer  10.0.0.2
+portainer     10.0.0.10
+
 git clone https://github.com/niclasdsgmbh/kubernetes_setup.git /git \
 && cd /git \
 && chmod +x init.sh manager.sh worker.sh
