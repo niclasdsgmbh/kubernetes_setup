@@ -3,6 +3,10 @@ worker-x      10.0.0.101 - 10.0.0.119
 loadbalancer  10.0.0.2
 portainer     10.0.0.10
 
+apt update \
+&& apt dist-upgrade -y \
+&& init 6
+
 git clone https://github.com/niclasdsgmbh/kubernetes_setup.git /git \
 && cd /git \
 && chmod +x init.sh manager.sh worker.sh
