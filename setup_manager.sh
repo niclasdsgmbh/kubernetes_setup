@@ -89,11 +89,12 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 # DEPLOY                     #
 ##############################
 
-curl https://github.com/minio/operator/releases/download/v4.5.3/kubectl-minio_4.5.3_linux_amd64 -o kubectl-minio
-chmod +x kubectl-minio
-mv kubectl-minio /usr/local/bin/
-kubectl minio init
-kubectl minio proxy
+sudo chmod 777 /mnt/MinIO
+kubectl create -f ./files/storageclass.conf
+kubectl create -f minio-pv.yml
+kubectl create -f minio-pvc.yml
+kubectl create -f minio-dep.yml
+kubectl create -f minio-svc.yml
 
 kubectl apply -n calico -f    ./files/calico.yml
 kubectl apply -n portainer -f ./files/portainer.yml

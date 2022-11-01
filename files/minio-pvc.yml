@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc-claim
+spec:
+  storageClassName: my-local-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
