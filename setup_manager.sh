@@ -144,7 +144,7 @@ kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodep
 # DEPLOY CALICO CNI          #
 ##############################
 
-kubectl apply -f calico.yaml
+kubectl apply -f calico.yml
 
 ##############################
 # CREATE TOKEN               #
