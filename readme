@@ -26,3 +26,5 @@ export DEBIAN_FRONTEND=noninteractive \
 && git clone https://github.com/niclasdsgmbh/kubernetes_setup.git /git \
 && cd /git \
 && init 6
+
+--control-plane
