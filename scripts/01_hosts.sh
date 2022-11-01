@@ -1,3 +1,6 @@
+#!/bin/bash
+
+cat <<'EOF' >> /etc/hosts
 192.168.1.1  worker-1     
 192.168.1.2  worker-2      
 192.168.1.3  worker-3      
@@ -12,3 +15,4 @@
 192.168.1.12 manager-2     
 192.168.1.13 manager-3     
 192.168.1.14 manager-4     
+EOF

@@ -1,3 +1,6 @@
+#!/bin/bash
+
+kubectl apply -n -f <<EOF
 ---
 # Source: portainer/templates/namespace.yaml
 apiVersion: v1
@@ -146,3 +149,4 @@ spec:
               scheme: HTTPS
           resources:
             {}
+EOF
