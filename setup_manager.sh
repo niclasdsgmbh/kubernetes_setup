@@ -138,6 +138,20 @@ kubectl config set-context default \
 kubectl config use-context default --kubeconfig=cni.kubeconfig
 
 kubectl apply -f ./files/calico_cluster_role.yml
+kubectl create clusterrolebinding calico-cni --clusterrole=calico-cni --user=calico-cni
+
+curl -L -o /opt/cni/bin/calico https://github.com/projectcalico/cni-plugin/releases/download/v3.14.0/calico-amd64
+chmod 755 /opt/cni/bin/calico
+curl -L -o /opt/cni/bin/calico-ipam https://github.com/projectcalico/cni-plugin/releases/download/v3.14.0/calico-ipam-amd64
+chmod 755 /opt/cni/bin/calico-ipam
+
+mkdir -p /etc/cni/net.d/
+
+cp cni.kubeconfig /etc/cni/net.d/calico-kubeconfig
+chmod 600 /etc/cni/net.d/calico-kubeconfig
+
+cp ./files/calico.conflist /etc/cni/net.d/10-calico.conflist
+
 ##############################
 # MinIO                      #
 ##############################
