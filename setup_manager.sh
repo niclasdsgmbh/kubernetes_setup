@@ -153,6 +153,40 @@ chmod 600 /etc/cni/net.d/calico-kubeconfig
 cp ./files/calico.conflist /etc/cni/net.d/10-calico.conflist
 
 ##############################
+# TYPHA                      #
+##############################
+
+openssl req -x509 -newkey rsa:4096 \
+                  -keyout typhaca.key \
+                  -nodes \
+                  -out typhaca.crt \
+                  -subj "/CN=Calico Typha CA" \
+                  -days 365
+
+kubectl create configmap -n kube-system calico-typha-ca --from-file=typhaca.crt
+
+openssl req -newkey rsa:4096 \
+           -keyout typha.key \
+           -nodes \
+           -out typha.csr \
+           -subj "/CN=calico-typha"
+
+openssl x509 -req -in typha.csr \
+                  -CA typhaca.crt \
+                  -CAkey typhaca.key \
+                  -CAcreateserial \
+                  -out typha.crt \
+                  -days 365
+
+kubectl create secret generic -n kube-system calico-typha-certs --from-file=typha.key --from-file=typha.crt
+
+kubectl create serviceaccount -n kube-system calico-typha
+
+kubectl apply -f ./files/calico_typha.yml
+kubectl create clusterrolebinding calico-typha --clusterrole=calico-typha --serviceaccount=kube-system:calico-typha
+kubectl apply -f ./files/calico_typha_deployment.yml
+
+##############################
 # MinIO                      #
 ##############################
 
