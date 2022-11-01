@@ -137,13 +137,14 @@ docker run -d \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /mnt/storage/portainer/:/data/ \
     portainer/portainer-ee:latest
+    
+kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodeport.yaml
  
 ##############################
 # DEPLOY CALICO CNI          #
 ##############################
 
-kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodeport.yaml
+kubectl apply -f calico.yaml
 
 ##############################
 # CREATE TOKEN               #
