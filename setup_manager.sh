@@ -139,24 +139,9 @@ docker run -d \
     portainer/portainer-ee:latest
  
 ##############################
-# CONFIG FLANNEL & STORAGE   #
-##############################
-
-kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodeport.yaml
-curl https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml -O
-kubectl apply -f minio-dev.yaml
-
-##############################
-# CONFIG CNI                 #
+# APPLY YAMLS                #
 ##############################
 
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-kubectl patch storageclass gluster -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-
-
-##############################
-# CONFIG STORAGECLASS        #
-##############################
-
-kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://downloads.portainer.io/ee2-16/portainer-agent-k8s-nodeport.yaml
 
