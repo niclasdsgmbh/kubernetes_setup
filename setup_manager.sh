@@ -86,7 +86,23 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 ##############################
-# DEPLOY                     #
+# CALICO                     #
+##############################
+
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.3/manifests/crds.yaml
+wget https://github.com/projectcalico/calicoctl/releases/download/v3.24.3/calicoctl
+chmod +x calicoctl
+sudo mv calicoctl /usr/local/bin/
+
+export DATASTORE_TYPE=kubernetes
+export KUBECONFIG=~/.kube/config
+
+calicoctl create -f ./files/calico_ippool_1.yml
+calicoctl create -f ./files/calico_ippool_2.yml
+calicoctl create -f ./files/calico_ippool_3.yml
+
+##############################
+# MinIO                      #
 ##############################
 
 sudo chmod 777 /mnt/MinIO
