@@ -24,7 +24,6 @@ export DEBIAN_FRONTEND=noninteractive \
 && apt install -y git \
 && apt dist-upgrade -y \
 && git clone https://github.com/niclasdsgmbh/kubernetes_setup.git /git \
-&& cd /git \
+&& chmod +x /git/first_setup.sh \
+&& /git/first_setup.sh \
 && init 6
-
---control-plane
