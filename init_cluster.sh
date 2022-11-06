@@ -22,13 +22,8 @@
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     chown $(id -u):$(id -g) $HOME/.kube/config
 
-    curl https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml -O
-    kubectl apply -f minio-dev.yaml
-
-
-    helm repo add cilium https://helm.cilium.io/
-    helm install cilium cilium/cilium --version 1.12.3 --namespace kube-system
-
-    helm install --create-namespace -n portainer portainer portainer/portainer \
-        --set enterpriseEdition.enabled=true  \
-        --set service.type=LoadBalancer
+    kubectl apply -f https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml
+    
+    
+    kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/v1.6.5/install/kubernetes/quick-install.yaml
+    kubectl apply -f https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer-lb-ee.yaml
