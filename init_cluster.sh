@@ -16,6 +16,9 @@
     kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/v1.6.5/install/kubernetes/quick-install.yaml
 
     kubectl create -f storageclass.yml
+    kubectl create -f minio-pv.yml
+    sudo chcon -Rt svirt_sandbox_file_t /mnt/storage
+    sudo chmod 777 /mnt/storage
     kubectl apply -f https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml
     
     kubectl apply -f https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer-lb-ee.yaml

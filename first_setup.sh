@@ -87,3 +87,5 @@ apt install -yq \
 
     read -p "Wie lautet die Volume-ID: " volume
     echo "/dev/disk/by-id/scsi-0HC_Volume_$volume /mnt/storage ext4 discard,nofail,defaults 0 0" >> /etc/fstab
+    chcon -Rt svirt_sandbox_file_t /mnt/storage
+    chmod 777 /mnt/storage
