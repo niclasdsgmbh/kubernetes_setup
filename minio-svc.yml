@@ -3,6 +3,8 @@ kind: Service
 metadata:
   # This name uniquely identifies the service
   name: minio-service
+  annotations:
+    load-balancer.hetzner.cloud/name: "kubernetes"
 spec:
   type: LoadBalancer
   ports:

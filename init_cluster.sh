@@ -26,7 +26,10 @@
     kubectl create -f minio-pv.yml
     kubectl create -f minio-pvc.yml
     kubectl create -f minio-dep.yml
-    kubectl create -f minio-dsvc.yml
+    kubectl create -f minio-svc.yml
+
+
+    
   
     kubectl apply -f https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml
     
