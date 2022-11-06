@@ -86,8 +86,4 @@ apt install -yq \
 # MOUNT VOLUME
 
     read -p "Wie lautet die Volume-ID: " volume
-    echo $var
-
-    sudo mkfs.ext4 -F /dev/disk/by-id/scsi-0HC_Volume_$volume
-    mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_$volume /mnt/storage
     echo "/dev/disk/by-id/scsi-0HC_Volume_$volume /mnt/storage ext4 discard,nofail,defaults 0 0" >> /etc/fstab
