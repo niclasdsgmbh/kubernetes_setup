@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# MOUNT VOLUME
-
-    read -p "Wie lautet das Volume: " volume
-    echo $var
-
-    sudo mkfs.ext4 -F /dev/disk/by-id/$volume
-    mount -o discard,defaults /dev/disk/by-id/$volume /mnt/MinIO
-    echo "/dev/disk/by-id/$volume /mnt/MinIO ext4 discard,nofail,defaults 0 0" >> /etc/fstab
-
 # INITIALISE KUBEADM
 
     kubeadm init \
